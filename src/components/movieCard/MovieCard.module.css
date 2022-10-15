@@ -1,0 +1,70 @@
+.MovieCard{
+    overflow: hidden;
+    height: 560px;
+    border: 1px solid black;
+    box-sizing: border-box;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+
+}
+.image{
+    position: relative;
+    top: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+
+}
+
+.title h4{
+    margin: 0;
+
+}
+
+.title{
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+.overview{
+    width: 342px;
+    height: 83px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    padding-right: 7px;
+    padding-left: 7px;
+    box-sizing: border-box;
+
+}
+.overview p{
+    margin: 0;
+    text-align: center;
+
+}
+
+.button {
+    overflow: hidden;
+}
+
+
+.MovieCard:hover > .image{
+    top: -120px;
+    margin-bottom: -120px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+
+
+}
+
+
+
+

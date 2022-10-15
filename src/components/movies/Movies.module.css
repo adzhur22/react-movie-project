@@ -1,0 +1,11 @@
+.Movies{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-right: 40px;
+    padding-left: 40px;
+    box-sizing: border-box;
+    background: rgb(2,0,36);
+    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(117,117,117,1) 100%);
+}
