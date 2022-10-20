@@ -15,10 +15,14 @@ import {Star2} from "../star/Star2";
 
 export function Movies(){
 
+
     const {movies:{results, page:queryPage}, searchMovieStatus, searchMovie, discoverMovieParams} = useSelector(store => store.movieReducer);
     const {genres:{genres}} = useSelector(store => store.genreReducer);
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(genreActions.getGenres())
+    },[])
 
     let [searchParams, setSearchParams] = useSearchParams({page:'1'});
 
@@ -31,11 +35,6 @@ export function Movies(){
     console.log(discoverMovieParams);
 
 
-    useEffect(() => {
-
-        dispatch(genreActions.getGenres())
-
-    },[])
 
     const nextPage = () => {
         if(searchMovieStatus){

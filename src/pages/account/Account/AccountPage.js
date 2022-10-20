@@ -6,13 +6,15 @@ import {accountAction} from "../../../redux/slices/account.slice";
 import {AccountCard} from "../../../components/accountCard/AccountCard";
 
 import css from './AccountPage.module.css'
+import {movieActions} from "../../../redux/slices/movie.slice";
+import {MovieCard} from "../../../components/movieCard/MovieCard";
 
 
 export function AccountPage(){
 
     const dispatch = useDispatch();
     const {sessionId} = useSelector(store => store.authReducer);
-
+    const {watchList} = useSelector(store => store.movieReducer);
 
     let [query,] = useSearchParams();
 
@@ -24,6 +26,9 @@ export function AccountPage(){
            localStorage.setItem('sessionId', sessionId)
            dispatch(accountAction.getDetails(sessionId));
        }
+
+       dispatch(movieActions.getWatchList(ses,1))
+
    },[sessionId])
 
 
@@ -38,7 +43,7 @@ export function AccountPage(){
 
 
 
-
+console.log(watchList);
 
     return(
     <div className={css.AccountPage}>
@@ -54,7 +59,7 @@ export function AccountPage(){
       </div>
 
       <div className={css.info}>
-
+          {watchList.results && watchList.results.map(value=> <MovieCard key={value.id} movie={value}/> )}
       </div>
 
 

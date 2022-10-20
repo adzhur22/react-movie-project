@@ -8,6 +8,7 @@ const initialState = {
     discoverMovieParams:{page: '', with_genres:'', vote_average:''},
     searchMovieStatus:false,
     searchMovie: {},
+    watchList:{}
 
 }
 
@@ -50,18 +51,17 @@ const searchMovie = createAsyncThunk(
     }
 )
 
-// const getWatchList = createAsyncThunk(
-//     'movieSlice/getWatchList',
-//     async ({session_id,page},{rejectWithValue})=>{
-//         try {
-//             const {data} = await movieService.getWatchList(session_id,page);
-//             console.log(data)
-//             return data
-//         }catch (e){
-//             console.log(e);
-//         }
-//     }
-// )
+const getWatchList = createAsyncThunk(
+    'movieSlice/getWatchList',
+    async ({session_id,page},{rejectWithValue})=>{
+        try {
+            const {data} = await movieService.getWatchList(session_id,page);
+            return data
+        }catch (e){
+            console.log(e);
+        }
+    }
+)
 
 
 
@@ -96,6 +96,9 @@ const movieSlice = createSlice({
             state.movies = action.payload;
             state.searchMovieStatus = true;
         })
+        .addCase(getWatchList.fulfilled,(state, action) => {
+            state.watchList = action.payload;
+        })
 
 
 
@@ -110,8 +113,8 @@ const movieActions = {
     addSearch,
     addPageParams,
     addGenreParams,
-    addVoteAverageParams
-    // getWatchList
+    addVoteAverageParams,
+    getWatchList
 };
 
 export {movieReducer, movieActions}
