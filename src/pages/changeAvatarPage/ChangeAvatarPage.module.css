@@ -1,0 +1,12 @@
+.ChangeAvatarPage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+}
+
+.ChangeAvatarPage img {
+    width: 80%;
+    margin-bottom: 50px;
+}

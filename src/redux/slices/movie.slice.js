@@ -50,6 +50,21 @@ const searchMovie = createAsyncThunk(
     }
 )
 
+// const getWatchList = createAsyncThunk(
+//     'movieSlice/getWatchList',
+//     async ({session_id,page},{rejectWithValue})=>{
+//         try {
+//             const {data} = await movieService.getWatchList(session_id,page);
+//             console.log(data)
+//             return data
+//         }catch (e){
+//             console.log(e);
+//         }
+//     }
+// )
+
+
+
 
 
 const movieSlice = createSlice({
@@ -96,6 +111,7 @@ const movieActions = {
     addPageParams,
     addGenreParams,
     addVoteAverageParams
+    // getWatchList
 };
 
 export {movieReducer, movieActions}

@@ -18,12 +18,18 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    right: 45vw;
-    top:1px;
+    right: 40px;
+    top:50px;
 
 }
 .awesome{
-    font-size: 35px;
+    font-size: 26px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.text{
+    margin-right: 10px;
 }
 
 .genre{
@@ -50,14 +56,32 @@
 .select{
     overflow: hidden;
     margin-right: 10px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 
 
 
 .search{
-    margin-left: 5px;
-    width: 50px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchClick{
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchClick .form{
+    display: none;;
 }
 
 

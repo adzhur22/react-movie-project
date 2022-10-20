@@ -13,9 +13,8 @@ export function Menu(){
 
         return(
     <div className={css.menu} >
-        <div className={css.icon}>
+        <div onClick={()=> navigate('/login')} className={css.icon}>
             <p>My Account</p>
-
             <div className={css.awesome}>
                 <FontAwesomeIcon icon={faCircleUser}></FontAwesomeIcon>
             </div>

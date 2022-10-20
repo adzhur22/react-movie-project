@@ -18,13 +18,11 @@ export function MovieFullInformation(){
     };
 
     let {id} = useParams();
-
+    console.log(id)
     useEffect(()=>{
         dispatch(movieActions.getMovie(id))
-    },[id])
+    },[])
 
-
-    console.log(movie);
 
     return(
     <div className={css.MovieFullInformation}>

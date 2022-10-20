@@ -1,15 +1,13 @@
 import axios from "axios";
-
-import {token} from "../configs/token.api";
 import {baseURL} from "../configs/urls";
+import {token} from "../configs/token.api";
+
 
 const axiosServiceMovie = axios.create({
    baseURL,
-   headers: {
-      Authorization: `Bearer ${token}`
-   }
+   headers:{
+        Authorization: `Bearer ${token}`
+    }
 });
-
-
 
 export {axiosServiceMovie}

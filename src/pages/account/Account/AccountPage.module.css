@@ -1,0 +1,31 @@
+.AccountPage{
+width: 100vw;
+}
+
+
+.AccountCard{
+}
+
+.AccountCardBox{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    margin-left: 50px;
+    margin-top: 40px;
+    width: 50%;
+}
+
+.text img{
+    width: 100px;
+    transform: rotate(155deg)
+}
+
+.text h3{
+    width: 300px;
+    margin-left: 30px;
+
+}
+
+.info{
+    width: 50%;
+}

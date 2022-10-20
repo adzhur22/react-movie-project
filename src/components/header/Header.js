@@ -8,7 +8,7 @@ export function Header(){
 
 
         <div className={css.image}>
-            <img src={'https://www.transparentpng.com/thumb/movie/gray-movie-written-icon-png-UpaYYD.png'} alt={'movie'}/>
+            <img src={'https://www.pngmart.com/files/5/Movie-PNG-Image.png'} alt={'movie'}/>
         </div>
 
     </div>

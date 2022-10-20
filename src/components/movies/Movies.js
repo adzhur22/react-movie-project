@@ -8,7 +8,7 @@ import {useSearchParams} from "react-router-dom";
 import {genreActions} from "../../redux/slices/genres.slice";
 import {useForm} from "react-hook-form";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faMasksTheater} from "@fortawesome/free-solid-svg-icons";
+import {faMasksTheater, faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
 import {Star2} from "../star/Star2";
 
 
@@ -23,12 +23,19 @@ export function Movies(){
     let [searchParams, setSearchParams] = useSearchParams({page:'1'});
 
 
-    const {register,handleSubmit} = useForm();
+    const {register,handleSubmit,reset} = useForm();
 
     let [selected,setSelected] = useState();
 
 
     console.log(discoverMovieParams);
+
+
+    useEffect(() => {
+
+        dispatch(genreActions.getGenres())
+
+    },[])
 
     const nextPage = () => {
         if(searchMovieStatus){
@@ -79,49 +86,71 @@ export function Movies(){
 
 
 
-useEffect(() => {
-    dispatch(genreActions.getGenres())
-
-},[])
 
 useEffect(() => {
         dispatch(movieActions.getMovies(discoverMovieParams))
 
 },[discoverMovieParams])
 
-let [classs, setclasss] = useState(css.genre);
+let [classGenre, setclassGenre] = useState(css.genreClick);
 
+let [classSearch, setClassSearch] = useState(css.searchClick);
 
 
     return(
     <div className={css.Movies}>
 
         <div className={css.searchBox}>
-            <div className={classs}>
-                <div className={css.select}>
-                    <Star2/>
-                </div>
-                <div className={css.select}>
-                    <select value={selected} onChange={handleChange}>
-                        {genres && genres.map(option=> <option key={option.id} value={option.id}>{option.name}</option>)}
-                    </select>
-                </div>
+
+            <div className={classGenre}>
+                <div className={css.text}>Search by genre</div>
                 <div className={css.awesome} onClick={()=>{
-                    if(classs === css.genreClick){
-                        setclasss(css.genre)
+                    if(classGenre === css.genreClick){
+                        setclassGenre(css.genre);
+                        reset();
+                        if(classSearch === css.search){
+                            setClassSearch(css.searchClick)
+                        }
                     }else {
-                        setclasss(css.genreClick)
+                        setclassGenre(css.genreClick)
                     }}}>
                     <FontAwesomeIcon icon={faMasksTheater}></FontAwesomeIcon>
                 </div>
+                <div className={css.select}>
+                    <select value={selected} onChange={handleChange}>
+                        <option value={''}>Please choose a genre</option>
+                        {genres && genres.map(option=> <option key={option.id} value={option.id}>{option.name}</option>)}
+                    </select>
+                </div>
+                <div className={css.select}>
+                    <div>min rating</div>
+                    <Star2/>
+                </div>
             </div>
-            <div>|</div>
-            <div className={css.search}>
 
-                <form onChange={handleSubmit(submit)}>
-                    <input type='text' placeholder={'movie'} {...register('query')}/>
-                </form>
+            <div>|</div>
+
+            <div className={classSearch}>
+                <div className={css.text}>Search by title</div>
+                <div className={css.awesome} onClick={()=>{
+                    if(classSearch === css.searchClick){
+                        setClassSearch(css.search)
+                        if(classGenre === css.genre){
+                            setclassGenre(css.genreClick)
+                        }
+                    }else {
+                        setClassSearch(css.searchClick)
+                        reset();
+                    }}}>
+                    <FontAwesomeIcon icon={faMagnifyingGlass}></FontAwesomeIcon>
+                </div>
+                <div className={css.form}>
+                    <form onChange={handleSubmit(submit)}>
+                        <input type='text' placeholder={'movie'} {...register('query')}/>
+                    </form>
+                </div>
             </div>
+
         </div>
 
 
