@@ -1,0 +1,92 @@
+.MovieFullInformation{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.image{
+    position: relative;
+
+}
+
+.image img{
+    opacity: 0.1;
+    width: 100vw;
+
+}
+.info{
+    position: absolute;
+    top: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.stars{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.body{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: start;
+
+}
+
+.poster{
+    margin: 10px;
+    width: 40%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: start;
+
+}
+.details{
+    margin: 10px;
+    width: 50%;
+    padding: 20px;
+
+}
+.badge{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.adult , .kids {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:10px;
+
+}
+.adult div{
+    background: red;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.kids div{
+    background: green;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}

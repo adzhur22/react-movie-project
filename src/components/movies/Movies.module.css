@@ -1,11 +1,98 @@
 .Movies{
+
+}
+
+
+.movie{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
-    padding-right: 40px;
-    padding-left: 40px;
+    padding-right: 20px;
     box-sizing: border-box;
-    background: rgb(2,0,36);
-    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(117,117,117,1) 100%);
+
+}
+
+.searchBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 45vw;
+    top:1px;
+
+}
+.awesome{
+    font-size: 35px;
+}
+
+.genre{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+
+}
+
+.genreClick{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+
+}
+.genreClick .select{
+    display: none;
+
+
+}
+
+.select{
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+
+
+
+.search{
+    margin-left: 5px;
+    width: 50px;
+}
+
+
+
+.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+
+.button button {
+    background: white;
+    font-size: 15px;
+    border: none;
+    width:100px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+
+    border-radius: 10px;
+    margin: 20px 30px;
+}
+
+.button button:hover {
+
+    border: none;
+    width: 150px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }

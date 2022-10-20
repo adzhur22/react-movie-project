@@ -1,0 +1,59 @@
+.menu{
+    width: 50px;
+    margin-left: 0;
+    -webkit-transition: all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+    -ms-transition: all 0.7s ease;
+    transition: all 0.7s ease;
+    margin-top: 70px;
+
+
+}
+
+.menu:hover{
+    width: 180px;
+
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.icon{
+    font-size: 25px;
+    color: white;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.icon:hover{
+    color: white;
+    background: rgb(203, 196, 115);
+    cursor: pointer;
+
+}
+
+.icon .awesome{
+    margin-right: 10px;
+}
+
+
+.icon p{
+    font-size: 15px;
+    margin-right: 10px;
+    margin-left: 5px;
+    overflow: hidden;
+
+}
+
+.icon .awesomeLight{
+    font-size: 27px;
+    margin-right: 15px;
+    color: rgb(90, 87, 153);
+}
+
+
