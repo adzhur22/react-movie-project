@@ -1,9 +1,7 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
-import {movieReducer} from "./slices/movie.slice";
-import {genreReducer} from "./slices/genres.slice";
-import {themeModeReducer} from "./slices/theme.mode.slice";
-import {authReducer} from "./slices/auth.slice";
-import {accountReducer} from "./slices/account.slice";
+
+import {accountReducer, authReducer, genreReducer, movieReducer, themeModeReducer} from "./slices";
+
 
 const rootReducer = combineReducers({
     movieReducer,

@@ -1,8 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {accountService} from "../../services/account.service";
 
-
-
+import {accountService} from "../../services";
 
 
 const getDetails = createAsyncThunk(
@@ -17,8 +15,6 @@ const getDetails = createAsyncThunk(
         }
     }
 )
-
-
 
 
 const initialState = {

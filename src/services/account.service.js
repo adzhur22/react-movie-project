@@ -1,4 +1,4 @@
-import {urls} from "../configs/urls";
+import {urls} from "../configs";
 import {axiosServiceMovie} from "./axios.service.movie";
 
 

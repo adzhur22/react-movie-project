@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {movieService} from "../../services/movie.service";
+
+import {movieService} from "../../services";
 
 
 const initialState = {
@@ -11,7 +12,6 @@ const initialState = {
     watchList:{}
 
 }
-
 
 
 const getMovies = createAsyncThunk(
@@ -33,6 +33,19 @@ const getMovie = createAsyncThunk(
         try {
             const {data} = await movieService.getMovie(id);
             return data
+        }catch (e){
+            console.log(e);
+        }
+    }
+)
+
+const getTrendingMovie = createAsyncThunk(
+    'movieSlice/getMovie',
+    async (time,{rejectWithValue})=>{
+        try {
+            const {data} = await movieService.getTrending(time);
+            console.log(data)
+            // return data
         }catch (e){
             console.log(e);
         }
@@ -63,7 +76,16 @@ const getWatchList = createAsyncThunk(
     }
 )
 
-
+const correctWatchList = createAsyncThunk(
+    'movieSlice/correctWatchList',
+    async ({object,session_id},{rejectWithValue})=>{
+        try {
+             await movieService.correctWatchList(object,session_id);
+        }catch (e){
+            console.log(e);
+        }
+    }
+)
 
 
 
@@ -98,6 +120,7 @@ const movieSlice = createSlice({
         })
         .addCase(getWatchList.fulfilled,(state, action) => {
             state.watchList = action.payload;
+            localStorage.setItem('watchList', JSON.stringify(action.payload));
         })
 
 
@@ -114,7 +137,9 @@ const movieActions = {
     addPageParams,
     addGenreParams,
     addVoteAverageParams,
-    getWatchList
+    getWatchList,
+    correctWatchList,
+    getTrendingMovie
 };
 
 export {movieReducer, movieActions}

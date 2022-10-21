@@ -1,0 +1,57 @@
+.AccountPage{
+width: 100vw;
+}
+
+.logOut{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+}
+.logOut h4{
+    margin-right: 5px;
+}
+
+.AccountCard{
+}
+
+.AccountCardBox{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    margin-left: 50px;
+    margin-top: 40px;
+    width: 50%;
+}
+
+.text img{
+    width: 100px;
+    transform: rotate(155deg)
+}
+
+.text h3{
+    width: 300px;
+    margin-left: 30px;
+
+}
+
+.info{
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.watchList{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.denied{
+    width: 100%;
+    text-align: center;
+}

@@ -6,11 +6,13 @@ const urls = {
     getMovie:'movie/',
     authTokenNew:'/authentication/token/new',
     authSession:'/authentication/session/new',
+    deleteSession:'/authentication/session',
     getDetails:'/account',
     searchMovie:'search/movie',
     getGenre:'genre/movie/list',
     addMovieInWatchList:'/account/{account_id}/watchlist',
-    getWatchList: '/account/{account_id}/watchlist/movies'
+    getWatchList: '/account/{account_id}/watchlist/movies',
+    getTrendingMovie:'/trending/movie/'
 
 }
 

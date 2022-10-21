@@ -1,11 +1,11 @@
 import {Outlet} from "react-router-dom";
 
-import {Header} from "../../components/header/Header";
+import {Header} from "../../components/header";
 import dark from './MainLayout.module.css'
 import white from './MainLayoutLight.module.css'
-import {Menu} from "../../components/menu/Menu";
+import {Menu} from "../../components/menu";
+import {useTheme} from "../../hooks";
 
-import {useTheme} from "../../hooks/useTheme";
 
 export function MainLayout(){
 

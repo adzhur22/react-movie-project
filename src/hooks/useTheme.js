@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 
-import {themeActions} from "../redux/slices/theme.mode.slice";
+import {themeActions} from "../redux/slices";
 
 
 export function useTheme(white,dark){

@@ -1,8 +1,9 @@
+import {useDispatch} from "react-redux";
+import {useState} from "react";
 
 import StarRatings from "react-star-ratings/build/star-ratings";
-import {useState} from "react";
-import {movieActions} from "../../redux/slices/movie.slice";
-import {useDispatch} from "react-redux";
+import {movieActions} from "../../redux/slices";
+
 
 export function Star2(){
 const dispatch = useDispatch();

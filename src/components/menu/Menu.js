@@ -1,10 +1,12 @@
+import {useNavigate} from "react-router-dom";
+
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-// import {faUser} from '@fortawesome/free-regular-svg-icons';
-import {faClapperboard, faStarHalfStroke, faCircleUser, faMasksTheater, faLightbulb} from '@fortawesome/free-solid-svg-icons';
+import {faClapperboard, faStarHalfStroke, faCircleUser, faLightbulb} from '@fortawesome/free-solid-svg-icons';
 import dark from './Menu.module.css'
 import white from './MenuLight.module.css'
-import {useNavigate} from "react-router-dom";
-import {useTheme} from "../../hooks/useTheme";
+import {useTheme} from "../../hooks";
+
+
 export function Menu(){
 
     let navigate = useNavigate();

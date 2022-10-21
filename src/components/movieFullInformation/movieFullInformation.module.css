@@ -5,6 +5,7 @@
 
 }
 
+
 .image{
     position: relative;
 
@@ -15,6 +16,8 @@
     width: 100vw;
 
 }
+
+
 .info{
     position: absolute;
     top: 80px;

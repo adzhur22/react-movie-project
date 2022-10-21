@@ -1,7 +1,9 @@
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {authAction} from "../../redux/slices/auth.slice";
 import {useNavigate} from "react-router-dom";
+
+import {authAction} from "../../redux/slices";
+
 
 export function LoginPage(){
 
@@ -26,7 +28,7 @@ export function LoginPage(){
 
         return(
     <div>
-        login
+
 
     </div>
 

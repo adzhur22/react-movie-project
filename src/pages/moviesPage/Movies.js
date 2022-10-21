@@ -1,38 +1,41 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-
-import {movieActions} from "../../redux/slices/movie.slice";
-import {MovieCard} from "../movieCard/MovieCard";
-import css from './Movies.module.css'
 import {useSearchParams} from "react-router-dom";
-import {genreActions} from "../../redux/slices/genres.slice";
 import {useForm} from "react-hook-form";
+
+import {movieActions} from "../../redux/slices";
+import {MovieCard} from "../../components/movieCard";
+import css from './Movies.module.css'
+import {genreActions} from "../../redux/slices";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMasksTheater, faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
-import {Star2} from "../star/Star2";
-
+import {Star2} from "../../components/star";
 
 
 export function Movies(){
 
-
     const {movies:{results, page:queryPage}, searchMovieStatus, searchMovie, discoverMovieParams} = useSelector(store => store.movieReducer);
     const {genres:{genres}} = useSelector(store => store.genreReducer);
+
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(genreActions.getGenres())
-    },[])
-
     let [searchParams, setSearchParams] = useSearchParams({page:'1'});
-
 
     const {register,handleSubmit,reset} = useForm();
 
     let [selected,setSelected] = useState();
+    let [classGenre, setclassGenre] = useState(css.genreClick);
+    let [classSearch, setClassSearch] = useState(css.searchClick);
 
 
-    console.log(discoverMovieParams);
+    useEffect(() => {
+        if(!genres){
+            dispatch(genreActions.getGenres());
+        }
+        dispatch(movieActions.getMovies(discoverMovieParams));
+        dispatch(movieActions.getTrendingMovie('week'))
+
+    },[discoverMovieParams])
 
 
 
@@ -66,14 +69,14 @@ export function Movies(){
 
 
     const submit = ({query:data}) => {
-        console.log(data)
+
         if(data.length >= 1){
             dispatch(movieActions.searchMovie({page:1, query:data}));
             dispatch(movieActions.addSearch(data))
             setSearchParams({page:'1'})
         }
         else {
-            dispatch(movieActions.getMovies(1))
+            dispatch(movieActions.getMovies(1));
         }
     }
 
@@ -83,17 +86,6 @@ export function Movies(){
         setSelected(event.target.value);
     };
 
-
-
-
-useEffect(() => {
-        dispatch(movieActions.getMovies(discoverMovieParams))
-
-},[discoverMovieParams])
-
-let [classGenre, setclassGenre] = useState(css.genreClick);
-
-let [classSearch, setClassSearch] = useState(css.searchClick);
 
 
     return(

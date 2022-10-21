@@ -1,7 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {authService} from "../../services/auth.service";
 
-
+import {authService} from "../../services";
 
 
 const getRequestT = createAsyncThunk(
@@ -9,7 +8,6 @@ const getRequestT = createAsyncThunk(
     async (_,{rejectWithValue})=>{
         try {
             const {data:{request_token}} = await authService.getRequestToken();
-
             return request_token
         }catch (e){
             console.log(e);
@@ -29,10 +27,22 @@ const authSession = createAsyncThunk(
     }
 )
 
+const authDelete = createAsyncThunk(
+    'authSlice/logOut',
+    async (id,{rejectWithValue})=>{
+        try {
+            await authService.deleteSession(id)
+        }catch (e){
+            console.log(e);
+        }
+    }
+)
+
 
 const initialState = {
     requestToken:null,
     sessionId:null,
+
 }
 
 
@@ -47,6 +57,12 @@ const authSlice = createSlice({
         })
         .addCase(authSession.fulfilled,(state, action) =>{
             state.sessionId = action.payload;
+            localStorage.setItem('sessionId', action.payload);
+            localStorage.setItem('isLogin','true')
+        })
+        .addCase(authDelete.fulfilled,state => {
+            localStorage.removeItem('isLogin')
+            localStorage.removeItem('watchList');
         })
 })
 
@@ -54,7 +70,8 @@ const {reducer: authReducer}= authSlice;
 
 const authAction = {
     getRequestT,
-    authSession
+    authSession,
+    authDelete
 };
 
 

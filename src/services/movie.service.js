@@ -1,6 +1,5 @@
-import {urls} from "../configs/urls";
+import {urls} from "../configs";
 import {axiosServiceMovie} from "./axios.service.movie";
-
 
 
 const movieService = {
@@ -8,8 +7,9 @@ const movieService = {
     getMovie:(id)=> axiosServiceMovie.get(urls.getMovie + id),
     searchMovie:(page=1,query='')=> axiosServiceMovie.get(urls.searchMovie, {params:{query,page}}),
     getGenres:()=> axiosServiceMovie.get(urls.getGenre),
-    addMovieInWatchList:(data)=>axiosServiceMovie.post(urls.addMovieInWatchList,data),
-    getWatchList:(session_id,page=1)=>axiosServiceMovie.get(urls.getWatchList,{params:{'page':page, 'session_id':session_id}})
+    correctWatchList:(data, session_id)=>axiosServiceMovie.post(urls.addMovieInWatchList,data,{params:{'session_id':session_id}}),
+    getWatchList:(session_id,page=1)=>axiosServiceMovie.get(urls.getWatchList,{params:{'page':page, 'session_id':session_id}}),
+    getTrending:(time)=>axiosServiceMovie.get(urls.getTrendingMovie + time)
 }
 
 export {movieService}

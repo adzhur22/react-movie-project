@@ -1,27 +1,79 @@
 import {useDispatch, useSelector} from "react-redux";
-import {movieActions} from "../../redux/slices/movie.slice";
 import {useParams} from "react-router-dom";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+
+import {movieActions} from "../../redux/slices";
 import css from "./movieFullInformation.module.css";
-import {baseURLImage} from "../../configs/urls";
-import {Star} from "../star/Star";
-import {GenreBadge} from "../genreBadge/GenreBadge";
+import {baseURLImage} from "../../configs";
+import {Star} from "../star";
+import {GenreBadge} from "../genreBadge";
+
+
 
 export function MovieFullInformation(){
 
+    let [movieList, setMovieList] = useState();
+    let {id} = useParams();
+
+
+    const {movie,watchList:{results}} = useSelector(store => store.movieReducer);
+
     const dispatch = useDispatch();
-    const {movie} = useSelector(store => store.movieReducer);
+
+
+    const ses = localStorage.getItem('sessionId');
+    const isLogin = JSON.parse(localStorage.getItem('isLogin'));
+
 
     const age = {
         kids: '<18',
         adult: '18+'
     };
 
-    let {id} = useParams();
-    console.log(id)
+
     useEffect(()=>{
-        dispatch(movieActions.getMovie(id))
+        dispatch(movieActions.getMovie(id));
+        if(isLogin){
+            dispatch(movieActions.getWatchList({page:1,session_id:ses}));
+        }
+
     },[])
+
+
+    let isMovieInWatchList = results?.findIndex(value => +value.id === +id);
+
+    useEffect(()=>{
+
+            if(isMovieInWatchList === -1){
+                setMovieList(false)
+            }
+            else {
+                setMovieList(true)
+            }
+        },
+    [isMovieInWatchList])
+
+
+
+    const addFilm = () =>{
+         let obj = {
+            "media_type": "movie",
+            "media_id": id,
+            "watchlist": true
+        }
+        dispatch(movieActions.correctWatchList({session_id:ses,object:obj}))
+        setMovieList(true)
+    };
+
+    const deleteFilm = () =>{
+        let obj = {
+            "media_type": "movie",
+            "media_id": id,
+            "watchlist": false
+        }
+        dispatch(movieActions.correctWatchList({session_id:ses,object:obj}))
+        setMovieList(false)
+    };
 
 
     return(
@@ -44,6 +96,7 @@ export function MovieFullInformation(){
                     <div className={css.badge}>
                         {movie.genres && movie.genres.map(({name}, index1) => <GenreBadge key={index1} ganreBadge={name}/>)}
                     </div>
+
                     {movie.adult ?
                         <div className={css.adult}>
                             <div>
@@ -57,7 +110,23 @@ export function MovieFullInformation(){
                             </div>
                         </div>}
                     {movie.overview}
+
+                    {isLogin &&
+                        <div>
+                            {movieList ?
+                                <div>
+                                    <button onClick={deleteFilm}>delete from Watchlist </button>
+                                </div>
+                                :
+                                <div>
+                                    <button onClick={addFilm}>add to Watchlist </button>
+                                </div>
+                            }
+                        </div>}
+
+
                 </div>
+
             </div>
 
         </div>
