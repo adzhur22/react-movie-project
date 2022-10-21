@@ -9,7 +9,8 @@ const initialState = {
     discoverMovieParams:{page: '', with_genres:'', vote_average:''},
     searchMovieStatus:false,
     searchMovie: {},
-    watchList:{}
+    watchList:{},
+    TrendingMovie:{}
 
 }
 
@@ -40,12 +41,11 @@ const getMovie = createAsyncThunk(
 )
 
 const getTrendingMovie = createAsyncThunk(
-    'movieSlice/getMovie',
+    'movieSlice/getTrendingMovie',
     async (time,{rejectWithValue})=>{
         try {
             const {data} = await movieService.getTrending(time);
-            console.log(data)
-            // return data
+            return data
         }catch (e){
             console.log(e);
         }
@@ -121,6 +121,9 @@ const movieSlice = createSlice({
         .addCase(getWatchList.fulfilled,(state, action) => {
             state.watchList = action.payload;
             localStorage.setItem('watchList', JSON.stringify(action.payload));
+        })
+        .addCase(getTrendingMovie.fulfilled,(state, action) => {
+            state.TrendingMovie = action.payload;
         })
 
 

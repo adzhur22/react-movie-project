@@ -25,6 +25,7 @@ const baseURLImage = {
         w1280:'https://image.tmdb.org/t/p/w1280'
     },
     poster_sizes: {
+        w154:'https://image.tmdb.org/t/p/w154',
         w342:'https://image.tmdb.org/t/p/w342',
         w500:'https://image.tmdb.org/t/p/w500',
         w780:'https://image.tmdb.org/t/p/w780'

@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import {useForm} from "react-hook-form";
 
 import {movieActions} from "../../redux/slices";
@@ -10,21 +10,24 @@ import {genreActions} from "../../redux/slices";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMasksTheater, faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
 import {Star2} from "../../components/star";
+import {baseURLImage} from "../../configs";
 
 
 export function Movies(){
 
-    const {movies:{results, page:queryPage}, searchMovieStatus, searchMovie, discoverMovieParams} = useSelector(store => store.movieReducer);
+    const {movies:{results, page:queryPage}, searchMovieStatus, searchMovie, discoverMovieParams, TrendingMovie} = useSelector(store => store.movieReducer);
     const {genres:{genres}} = useSelector(store => store.genreReducer);
 
     const dispatch = useDispatch();
+
+    let navigate = useNavigate();
 
     let [searchParams, setSearchParams] = useSearchParams({page:'1'});
 
     const {register,handleSubmit,reset} = useForm();
 
     let [selected,setSelected] = useState();
-    let [classGenre, setclassGenre] = useState(css.genreClick);
+    let [classGenre, setclassGenre] = useState(css.genre);
     let [classSearch, setClassSearch] = useState(css.searchClick);
 
 
@@ -34,7 +37,6 @@ export function Movies(){
         }
         dispatch(movieActions.getMovies(discoverMovieParams));
         dispatch(movieActions.getTrendingMovie('week'))
-
     },[discoverMovieParams])
 
 
@@ -93,34 +95,6 @@ export function Movies(){
 
         <div className={css.searchBox}>
 
-            <div className={classGenre}>
-                <div className={css.text}>Search by genre</div>
-                <div className={css.awesome} onClick={()=>{
-                    if(classGenre === css.genreClick){
-                        setclassGenre(css.genre);
-                        reset();
-                        if(classSearch === css.search){
-                            setClassSearch(css.searchClick)
-                        }
-                    }else {
-                        setclassGenre(css.genreClick)
-                    }}}>
-                    <FontAwesomeIcon icon={faMasksTheater}></FontAwesomeIcon>
-                </div>
-                <div className={css.select}>
-                    <select value={selected} onChange={handleChange}>
-                        <option value={''}>Please choose a genre</option>
-                        {genres && genres.map(option=> <option key={option.id} value={option.id}>{option.name}</option>)}
-                    </select>
-                </div>
-                <div className={css.select}>
-                    <div>min rating</div>
-                    <Star2/>
-                </div>
-            </div>
-
-            <div>|</div>
-
             <div className={classSearch}>
                 <div className={css.text}>Search by title</div>
                 <div className={css.awesome} onClick={()=>{
@@ -145,14 +119,62 @@ export function Movies(){
         </div>
 
 
-        <div className={css.movie}>
-            {results && results.map(movie => <MovieCard key={movie.id} movie={movie}/>)}
+
+        <div className={css.marqueeInfinite}>
+
+            {/*<h3>-.-.Trending Movies.-.-</h3>*/}
+            <div className={css.dv}>
+               <span>
+                   {TrendingMovie.results && TrendingMovie.results.map(value => <div key={value.id} className={css.imgBlock}> <img className={css.img} onClick={()=>navigate(value.id.toString())}  src={baseURLImage.poster_sizes.w154 + value.poster_path} alt={value.title}/> <img className={css.imgIcon} src={'https://www.pngall.com/wp-content/uploads/12/Toppng-PNG.png'}/></div>)}
+                </span>
+                <span>
+                    {TrendingMovie.results && TrendingMovie.results.map(value => <div key={value.id} className={css.imgBlock}> <img className={css.img} onClick={()=>navigate(value.id.toString())}  src={baseURLImage.poster_sizes.w154 + value.poster_path} alt={value.title}/> <img className={css.imgIcon} src={'https://www.pngall.com/wp-content/uploads/12/Toppng-PNG.png'}/></div>)}
+                </span>
+
+            </div>
+
         </div>
 
-        <div className={css.button}>
-            <button disabled={queryPage===1} onClick={()=> prevPage()}>prev</button>
-            <button disabled={queryPage===500} onClick={()=> nextPage()}>next</button>
+        <div className={classGenre}>
+            <div className={css.text}>Search by genre</div>
+            <div className={css.awesome} onClick={()=>{
+                if(classGenre === css.genreClick){
+                    setclassGenre(css.genre);
+                    reset();
+                    if(classSearch === css.search){
+                        setClassSearch(css.searchClick)
+                    }
+                }else {
+                    setclassGenre(css.genreClick)
+                }}}>
+                <FontAwesomeIcon icon={faMasksTheater}></FontAwesomeIcon>
+            </div>
+            <div className={css.select}>
+                <select value={selected} onChange={handleChange}>
+                    <option value={''}>Please choose a genre</option>
+                    {genres && genres.map(option=> <option key={option.id} value={option.id}>{option.name}</option>)}
+                </select>
+            </div>
+            <div className={css.select}>
+                <div>min rating</div>
+                <Star2/>
+            </div>
         </div>
+
+
+<div className={css.boxContent}>
+    <div className={css.movie}>
+        {results && results.map(movie => <MovieCard key={movie.id} movie={movie}/>)}
+    </div>
+
+    <div className={css.button}>
+        <button disabled={queryPage===1} onClick={()=> prevPage()}>prev</button>
+        <button disabled={queryPage===500} onClick={()=> nextPage()}>next</button>
+    </div>
+
+</div>
+
+
 
 
     </div>
