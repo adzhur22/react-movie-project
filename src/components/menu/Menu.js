@@ -1,7 +1,7 @@
 import {useNavigate} from "react-router-dom";
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faClapperboard, faStarHalfStroke, faCircleUser, faLightbulb} from '@fortawesome/free-solid-svg-icons';
+import {faClapperboard, faCircleUser, faLightbulb} from '@fortawesome/free-solid-svg-icons';
 import dark from './Menu.module.css'
 import white from './MenuLight.module.css'
 import {useTheme} from "../../hooks";
@@ -26,12 +26,6 @@ export function Menu(){
             <p>Movies</p>
             <div className={css.awesome}>
                     <FontAwesomeIcon icon={faClapperboard}></FontAwesomeIcon>
-            </div>
-        </div>
-        <div className={css.icon}>
-            <p>Best Rating</p>
-            <div className={css.awesome}>
-            <FontAwesomeIcon icon={faStarHalfStroke}></FontAwesomeIcon>
             </div>
         </div>
         <div onClick={()=> swich()} className={css.icon} >

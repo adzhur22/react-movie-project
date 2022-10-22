@@ -119,5 +119,32 @@
 }
 
 .red{
-    color: red;
+    color: #a40000;
+}
+
+
+.button button {
+    background: white;
+    font-size: 15px;
+    border: none;
+    width:180px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+
+    border-radius: 10px;
+    margin: 20px 30px;
+}
+
+.button button:hover {
+
+    border: none;
+    width: 280px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }

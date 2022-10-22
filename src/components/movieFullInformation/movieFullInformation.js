@@ -18,13 +18,14 @@ export function MovieFullInformation(){
 
     let [movieList, setMovieList] = useState();
     let {id} = useParams();
+    let arrayWatch = [];
 
 
-    const {movie,watchList:{results}} = useSelector(store => store.movieReducer);
+    const {movie,watchList:{results,total_pages, page:thisPage}, fullWatchList} = useSelector(store => store.movieReducer);
 
     const dispatch = useDispatch();
 
-console.log(movie)
+    console.log(fullWatchList);
 
     const ses = localStorage.getItem('sessionId');
     const isLogin = JSON.parse(localStorage.getItem('isLogin'));
@@ -38,14 +39,36 @@ console.log(movie)
 
     useEffect(()=>{
         dispatch(movieActions.getMovie(id));
-        if(isLogin){
+        if(isLogin && !total_pages){
             dispatch(movieActions.getWatchList({page:1,session_id:ses}));
+
+        }
+        if(thisPage && isLogin && thisPage < total_pages){
+            dispatch(movieActions.getWatchList({page: 1 + thisPage,session_id:ses}));
         }
 
-    },[])
+    },[fullWatchList])
+
+    useEffect(()=>{
+        if(!fullWatchList){
+            dispatch(movieActions.addFullWatchMovies(results))
+        }
+        if(fullWatchList && fullWatchList.length === (thisPage-1)*20){
+            for (const element of fullWatchList) {
+                arrayWatch.push(element);
+
+            }
+            for (const elementRes of results) {
+                arrayWatch.push(elementRes);
+            }
+            dispatch(movieActions.addFullWatchMovies(arrayWatch))
+        }
 
 
-    let isMovieInWatchList = results?.findIndex(value => +value.id === +id);
+    },[results])
+
+
+    let isMovieInWatchList = fullWatchList?.findIndex(value => +value.id === +id);
 
     useEffect(()=>{
 
@@ -84,12 +107,14 @@ console.log(movie)
 
     useEffect(()=>{
         if(movie.backdrop_path){
-            setPage(baseURLImage.poster_sizes.w780 + movie.backdrop_path);
+            setPageBack(baseURLImage.poster_sizes.w780 + movie.backdrop_path);
         }else {
-            setPage(reserveBackPage);
+            setPageBack(reserveBackPage);
         }
     },[movie])
 
+
+    let [pageBack, setPageBack] =useState();
 
     let [page, setPage] =useState();
     let [pageReserve, setPageReserve] =useState(css.imageOff);
@@ -99,18 +124,22 @@ console.log(movie)
         setPage(css.imageOff);
         setPageReserve(css.imageOn)
     }
+    const imageLoad = () =>{
+        setPageReserve(css.imageOff)
+        setPage(css.imageOn);
+    }
 
 
 
         return(
 <div className={css.MovieFullInformation}>
 
-     <div className={css.back} style={{backgroundImage:`url('${page}')`}}></div>
+     <div className={css.back} style={{backgroundImage:`url('${pageBack}')`}}></div>
         <div className={css.info}>
                 <div className={css.details}>
 
                     <div className={css.image}>
-                        <img className={page}  onError={imageError} src={baseURLImage.poster_sizes.w342 + movie.poster_path} alt={movie.title}/>
+                        <img className={page}  onError={imageError} onLoad={imageLoad} src={baseURLImage.poster_sizes.w342 + movie.poster_path} alt={movie.title}/>
                         <img className={pageReserve} src={reservePoster} alt={movie.title}/>
                     </div>
 
@@ -143,11 +172,11 @@ console.log(movie)
             {isLogin ?
                 <div>
                     {movieList ?
-                        <div>
+                        <div className={css.button}>
                             <button onClick={deleteFilm}>delete from Watchlist </button>
                         </div>
                         :
-                        <div>
+                        <div className={css.button}>
                             <button onClick={addFilm}>add to Watchlist </button>
                         </div>
                     }

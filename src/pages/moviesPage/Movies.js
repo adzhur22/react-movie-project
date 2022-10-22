@@ -24,6 +24,8 @@ export function Movies(){
 
     let [searchParams, setSearchParams] = useSearchParams({page:'1'});
 
+
+
     const {register,handleSubmit,reset} = useForm();
 
     let [selected,setSelected] = useState();
@@ -35,7 +37,12 @@ export function Movies(){
         if(!genres){
             dispatch(genreActions.getGenres());
         }
-        dispatch(movieActions.getMovies(discoverMovieParams));
+        if(discoverMovieParams.page.length === 0){
+            dispatch(movieActions.getMovies({page:searchParams.get('page')}));
+        }
+        if(discoverMovieParams.page.length !== 0){
+           dispatch(movieActions.getMovies(discoverMovieParams));
+        }
         dispatch(movieActions.getTrendingMovie('week'))
     },[discoverMovieParams])
 

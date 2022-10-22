@@ -10,7 +10,8 @@ const initialState = {
     searchMovieStatus:false,
     searchMovie: {},
     watchList:{},
-    TrendingMovie:{}
+    TrendingMovie:{},
+    fullWatchList:null
 
 }
 
@@ -104,6 +105,9 @@ const movieSlice = createSlice({
         },
         addVoteAverageParams: (state, action) => {
             state.discoverMovieParams.vote_average = action.payload;
+        },
+        addFullWatchMovies:(state, action)=>{
+            state.fullWatchList = action.payload;
         }
     },
     extraReducers:builder => builder
@@ -130,7 +134,7 @@ const movieSlice = createSlice({
 
 })
 
-const {reducer:movieReducer, actions:{addSearch, addPageParams, addGenreParams, addVoteAverageParams}} = movieSlice;
+const {reducer:movieReducer, actions:{addSearch, addPageParams, addGenreParams, addVoteAverageParams,addFullWatchMovies}} = movieSlice;
 
 const movieActions = {
     getMovies,
@@ -142,7 +146,8 @@ const movieActions = {
     addVoteAverageParams,
     getWatchList,
     correctWatchList,
-    getTrendingMovie
+    getTrendingMovie,
+    addFullWatchMovies
 };
 
 export {movieReducer, movieActions}

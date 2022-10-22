@@ -22,36 +22,82 @@ width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     margin-left: 50px;
-    margin-top: 40px;
-    width: 50%;
+    width: 550px;
+    border: 1px solid white;
 }
 
 .text img{
     width: 100px;
-    transform: rotate(155deg)
+    margin-left: 20px;
+    transform: rotate(-45deg)
 }
 
-.text h3{
-    width: 300px;
-    margin-left: 30px;
-
+.text h4{
+    width: 100%;
+    text-align: center;
 }
 
 .info{
-    width: 50%;
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .watchList{
+    margin-left: 10px;
+    height: 610px;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+}
+
+
+.watchList h2{
+    display: flex;
+    left: 25%;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
 }
 
 .denied{
     width: 100%;
     text-align: center;
+    color: #a40000;
+}
+
+
+.button{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.button button {
+    background: white;
+    font-size: 15px;
+    border: none;
+    width:100px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+
+    border-radius: 10px;
+    margin: 20px 30px;
+}
+
+.button button:hover {
+
+    border: none;
+    width: 150px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
