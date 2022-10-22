@@ -1,16 +1,20 @@
-import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
+import css from './movieFullInformation.module.css'
 import {useEffect, useState} from "react";
-
+import {useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import {movieActions} from "../../redux/slices";
-import css from "./movieFullInformation.module.css";
 import {baseURLImage} from "../../configs";
+
 import {Star} from "../star";
 import {GenreBadge} from "../genreBadge";
+import reserveBackPage from "../../files/image/reserveBackPage/reserveBackPage.jpg";
+import reservePoster from "../../files/image/reservePoster/ReservPoster.png";
+
 
 
 
 export function MovieFullInformation(){
+
 
     let [movieList, setMovieList] = useState();
     let {id} = useParams();
@@ -20,6 +24,7 @@ export function MovieFullInformation(){
 
     const dispatch = useDispatch();
 
+console.log(movie)
 
     const ses = localStorage.getItem('sessionId');
     const isLogin = JSON.parse(localStorage.getItem('isLogin'));
@@ -51,12 +56,12 @@ export function MovieFullInformation(){
                 setMovieList(true)
             }
         },
-    [isMovieInWatchList])
+        [isMovieInWatchList])
 
 
 
     const addFilm = () =>{
-         let obj = {
+        let obj = {
             "media_type": "movie",
             "media_id": id,
             "watchlist": true
@@ -76,17 +81,39 @@ export function MovieFullInformation(){
     };
 
 
-    return(
-    <div className={css.MovieFullInformation}>
-            <div className={css.image}>
-                <img src={baseURLImage.poster_sizes.w780 + movie.backdrop_path} alt={movie.title}/>
-            </div>
+
+    useEffect(()=>{
+        if(movie.backdrop_path){
+            setPage(baseURLImage.poster_sizes.w780 + movie.backdrop_path);
+        }else {
+            setPage(reserveBackPage);
+        }
+    },[movie])
+
+
+    let [page, setPage] =useState();
+    let [pageReserve, setPageReserve] =useState(css.imageOff);
+
+
+    const imageError = () =>{
+        setPage(css.imageOff);
+        setPageReserve(css.imageOn)
+    }
+
+
+
+        return(
+<div className={css.MovieFullInformation}>
+
+     <div className={css.back} style={{backgroundImage:`url('${page}')`}}></div>
         <div className={css.info}>
-            <div className={css.body}>
-                <div className={css.poster}>
-                    <img src={baseURLImage.poster_sizes.w500 + movie.poster_path} alt={movie.title}/>
-                </div>
                 <div className={css.details}>
+
+                    <div className={css.image}>
+                        <img className={page}  onError={imageError} src={baseURLImage.poster_sizes.w342 + movie.poster_path} alt={movie.title}/>
+                        <img className={pageReserve} src={reservePoster} alt={movie.title}/>
+                    </div>
+
                     <div className={css.title}>
                         <h1>{movie.original_title}</h1>
                     </div>
@@ -109,32 +136,31 @@ export function MovieFullInformation(){
                                 {age.kids}
                             </div>
                         </div>}
-                    {movie.overview}
-
-                    {isLogin &&
-                        <div>
-                            {movieList ?
-                                <div>
-                                    <button onClick={deleteFilm}>delete from Watchlist </button>
-                                </div>
-                                :
-                                <div>
-                                    <button onClick={addFilm}>add to Watchlist </button>
-                                </div>
-                            }
-                        </div>}
+                    <div className={css.overview}>{movie.overview}</div >
 
 
                 </div>
-
+            {isLogin ?
+                <div>
+                    {movieList ?
+                        <div>
+                            <button onClick={deleteFilm}>delete from Watchlist </button>
+                        </div>
+                        :
+                        <div>
+                            <button onClick={addFilm}>add to Watchlist </button>
+                        </div>
+                    }
+                </div>
+            :
+                <div>
+                  <h3 className={css.red}>You must login in your account that you can add movies in your "watch list"!</h3>
+                </div>}
             </div>
 
-        </div>
+</div>
 
 
-
-
-    </div>
 
         );
 }

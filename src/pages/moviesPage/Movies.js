@@ -15,7 +15,7 @@ import {baseURLImage} from "../../configs";
 
 export function Movies(){
 
-    const {movies:{results, page:queryPage}, searchMovieStatus, searchMovie, discoverMovieParams, TrendingMovie} = useSelector(store => store.movieReducer);
+    const {movies:{results, page:queryPage, total_pages}, searchMovieStatus, searchMovie, discoverMovieParams, TrendingMovie} = useSelector(store => store.movieReducer);
     const {genres:{genres}} = useSelector(store => store.genreReducer);
 
     const dispatch = useDispatch();
@@ -169,7 +169,7 @@ export function Movies(){
 
     <div className={css.button}>
         <button disabled={queryPage===1} onClick={()=> prevPage()}>prev</button>
-        <button disabled={queryPage===500} onClick={()=> nextPage()}>next</button>
+        <button disabled={queryPage===500 ||queryPage >= total_pages} onClick={()=> nextPage()}>next</button>
     </div>
 
 </div>

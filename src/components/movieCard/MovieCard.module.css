@@ -27,6 +27,19 @@
 
 }
 
+.reserveImage{
+    display: none;
+}
+
+.imageOff{
+display: none;
+}
+
+.imageOn{
+    display: block;
+}
+
+
 .title h4{
     margin: 0;
 

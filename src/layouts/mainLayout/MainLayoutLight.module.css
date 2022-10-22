@@ -3,7 +3,7 @@
     color: white;
     background: rgb(171, 171, 171);
     background: linear-gradient(180deg, rgb(171, 171, 171) 0%, rgb(162, 155, 131) 100%);
-    min-height: 100vh;
+    min-height: 1000px;
 }
 
 .body{

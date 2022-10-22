@@ -3,10 +3,11 @@ import {Navigate, Route, Routes} from "react-router-dom";
 
 import {MainLayout} from "./layouts/mainLayout";
 import {Movies} from "./pages/moviesPage";
-import {MovieFullInformation} from "./components/movieFullInformation";
+
 import {LoginPage} from "./pages/login";
 import {AccountPage} from "./pages/account";
 import {ChangeAvatarPage} from "./pages/changeAvatarPage";
+import {MovieFullInformation} from "./components/movieFullInformation";
 
 
 
