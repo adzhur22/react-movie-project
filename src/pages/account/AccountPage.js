@@ -21,7 +21,6 @@ export function AccountPage(){
     const dispatch = useDispatch();
 
 
-
     let [query, setQuery] = useSearchParams({page:'1'});
 
 

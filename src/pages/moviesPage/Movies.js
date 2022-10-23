@@ -33,6 +33,8 @@ export function Movies(){
     let [classSearch, setClassSearch] = useState(css.searchClick);
 
 
+    useEffect(()=>{dispatch(movieActions.getTrendingMovie('week'))},[])
+
     useEffect(() => {
         if(!genres){
             dispatch(genreActions.getGenres());
@@ -40,10 +42,10 @@ export function Movies(){
         if(discoverMovieParams.page.length === 0){
             dispatch(movieActions.getMovies({page:searchParams.get('page')}));
         }
-        if(discoverMovieParams.page.length !== 0){
+        if(discoverMovieParams.page.length !== 0 || discoverMovieParams.vote_average !== '' || discoverMovieParams.with_genres !== ''){
            dispatch(movieActions.getMovies(discoverMovieParams));
+
         }
-        dispatch(movieActions.getTrendingMovie('week'))
     },[discoverMovieParams])
 
 

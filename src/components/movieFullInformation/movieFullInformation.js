@@ -1,16 +1,15 @@
-import css from './movieFullInformation.module.css'
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {movieActions} from "../../redux/slices";
-import {baseURLImage} from "../../configs";
+
 
 import {Star} from "../star";
 import {GenreBadge} from "../genreBadge";
 import reserveBackPage from "../../files/image/reserveBackPage/reserveBackPage.jpg";
 import reservePoster from "../../files/image/reservePoster/ReservPoster.png";
-
-
+import {movieActions} from "../../redux/slices";
+import {baseURLImage} from "../../configs";
+import css from './movieFullInformation.module.css'
 
 
 export function MovieFullInformation(){
@@ -21,11 +20,12 @@ export function MovieFullInformation(){
     let arrayWatch = [];
 
 
-    const {movie,watchList:{results,total_pages, page:thisPage}, fullWatchList} = useSelector(store => store.movieReducer);
+    const {movie,watchList:{results,total_pages, page:thisPage}, fullWatchList, isChangeWatchList} = useSelector(store => store.movieReducer);
 
     const dispatch = useDispatch();
 
     console.log(fullWatchList);
+    console.log(isChangeWatchList);
 
     const ses = localStorage.getItem('sessionId');
     const isLogin = JSON.parse(localStorage.getItem('isLogin'));
@@ -39,15 +39,21 @@ export function MovieFullInformation(){
 
     useEffect(()=>{
         dispatch(movieActions.getMovie(id));
+    },[id])
+
+    useEffect(()=>{
         if(isLogin && !total_pages){
             dispatch(movieActions.getWatchList({page:1,session_id:ses}));
-
+        }
+        if(isChangeWatchList){
+            dispatch(movieActions.getWatchList({page:1,session_id:ses}));
+            dispatch(movieActions.offIsChangeWatchList())
         }
         if(thisPage && isLogin && thisPage < total_pages){
             dispatch(movieActions.getWatchList({page: 1 + thisPage,session_id:ses}));
         }
 
-    },[fullWatchList])
+    },[fullWatchList, isChangeWatchList])
 
     useEffect(()=>{
         if(!fullWatchList){
@@ -65,7 +71,7 @@ export function MovieFullInformation(){
         }
 
 
-    },[results])
+    },[results, id])
 
 
     let isMovieInWatchList = fullWatchList?.findIndex(value => +value.id === +id);
@@ -90,7 +96,10 @@ export function MovieFullInformation(){
             "watchlist": true
         }
         dispatch(movieActions.correctWatchList({session_id:ses,object:obj}))
-        setMovieList(true)
+        setMovieList(false)
+        dispatch(movieActions.addFullWatchMovies(null))
+
+
     };
 
     const deleteFilm = () =>{
@@ -100,7 +109,9 @@ export function MovieFullInformation(){
             "watchlist": false
         }
         dispatch(movieActions.correctWatchList({session_id:ses,object:obj}))
-        setMovieList(false)
+        setMovieList(true)
+        dispatch(movieActions.addFullWatchMovies(null))
+
     };
 
 

@@ -1,12 +1,12 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
 
 import {baseURLImage} from "../../configs";
 import css from './MovieCard.module.css'
 import {GenreBadge} from "../genreBadge";
 import {Star} from "../star";
 import reservePoster from '../../files/image/reservePoster/ReservPoster.png'
-import {useEffect, useState} from "react";
 import {genreActions} from "../../redux/slices";
 
 

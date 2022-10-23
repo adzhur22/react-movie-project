@@ -11,7 +11,9 @@ const initialState = {
     searchMovie: {},
     watchList:{},
     TrendingMovie:{},
-    fullWatchList:null
+    fullWatchList:null,
+    isChangeWatchList: false
+
 
 }
 
@@ -82,6 +84,7 @@ const correctWatchList = createAsyncThunk(
     async ({object,session_id},{rejectWithValue})=>{
         try {
              await movieService.correctWatchList(object,session_id);
+             return true
         }catch (e){
             console.log(e);
         }
@@ -108,6 +111,9 @@ const movieSlice = createSlice({
         },
         addFullWatchMovies:(state, action)=>{
             state.fullWatchList = action.payload;
+        },
+        offIsChangeWatchList:(state)=>{
+            state.isChangeWatchList = false;
         }
     },
     extraReducers:builder => builder
@@ -129,12 +135,15 @@ const movieSlice = createSlice({
         .addCase(getTrendingMovie.fulfilled,(state, action) => {
             state.TrendingMovie = action.payload;
         })
+        .addCase(correctWatchList.fulfilled,(state,action)=>{
+            state.isChangeWatchList = action.payload;
+        })
 
 
 
 })
 
-const {reducer:movieReducer, actions:{addSearch, addPageParams, addGenreParams, addVoteAverageParams,addFullWatchMovies}} = movieSlice;
+const {reducer:movieReducer, actions:{addSearch, addPageParams, addGenreParams, addVoteAverageParams,addFullWatchMovies, offIsChangeWatchList}} = movieSlice;
 
 const movieActions = {
     getMovies,
@@ -147,7 +156,8 @@ const movieActions = {
     getWatchList,
     correctWatchList,
     getTrendingMovie,
-    addFullWatchMovies
+    addFullWatchMovies,
+    offIsChangeWatchList
 };
 
 export {movieReducer, movieActions}
