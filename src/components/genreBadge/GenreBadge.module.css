@@ -6,14 +6,6 @@
 
 }
 
-.GenreBadge:hover{
-    background: white;
-    color: #2a2a2a;
-    cursor: pointer;
-
-}
-
-
 .text{
     margin-right: 5px;
     margin-left: 5px;
