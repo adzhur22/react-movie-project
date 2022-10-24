@@ -24,9 +24,6 @@ export function MovieFullInformation(){
 
     const dispatch = useDispatch();
 
-    console.log(fullWatchList);
-    console.log(isChangeWatchList);
-
     const ses = localStorage.getItem('sessionId');
     const isLogin = JSON.parse(localStorage.getItem('isLogin'));
 

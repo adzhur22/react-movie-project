@@ -22,6 +22,7 @@ let {css} = useTheme(white,dark);
                 <Menu/>
             </div>
             <Outlet/>
+
         </div>
 
     </div>
